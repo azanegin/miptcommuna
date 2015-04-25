@@ -17,18 +17,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^meetings$', 'app.views.meetings', name='contact'),
     url(r'^trips', 'app.views.trips', name='about'),
-    url(r'^login/$',
-        'django.contrib.auth.views.login',
-        {
-            'template_name': 'app/login.html',
-            'authentication_form': BootstrapAuthenticationForm,
-            'extra_context':
-            {
-                'title':'Log in',
-                'year':datetime.now().year,
-            }
-        },
-        name='login'),
+    url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
     url(r'^logout$',
         'django.contrib.auth.views.logout',
         {
