@@ -1,4 +1,9 @@
 {% extends "app/base.html" %}
 {% block base %}
-Встречи
+{% for meeting in meetings %}
+<ul>
+  <li>{{ meeting.support }}</li>
+  <li>{{ meeting.description }}</li>
+</ul>
+{% endfor %}
 {% endblock %}
