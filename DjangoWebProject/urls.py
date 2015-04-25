@@ -4,7 +4,6 @@ Definition of urls for DjangoWebProject.
 
 from datetime import datetime
 from django.conf.urls import patterns, url
-from app.forms import BootstrapAuthenticationForm
 
 # Uncomment the next lines to enable the admin:
 from django.conf.urls import include
@@ -17,12 +16,12 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^meetings$', 'app.views.meetings', name='contact'),
     url(r'^trips', 'app.views.trips', name='about'),
-    url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
-    url(r'^logout$',
-        'django.contrib.auth.views.logout',
-        {
-            'next_page': '/',
-        },
-        name='logout'),
+    url(r'^post', 'app.views.post_wanted', name='post'),
+    #url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
+    #url(r'^logout$', 'django.contrib.auth.views.logout',
+    #    {
+    #        'next_page': '/',
+    #    },
+    #    name='logout'),
 
 )

@@ -176,6 +176,6 @@ AUTHENTICATION_BACKENDS = (
     'social.backends.google.GoogleOAuth2',
     'social.backends.google.GoogleOAuth',
     'social.backends.twitter.TwitterOAuth',
-    'social.backends.vkontakte.VKontakteOAuth2Backend',
+    'social.backends.vk.VKOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
