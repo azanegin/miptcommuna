@@ -47,7 +47,8 @@ class Meeting(models.Model):
     location = models.TextField(default='')  # место для мероприятия
     creator = models.ForeignKey(Person)  # создатель
     support = models.TextField()  # поддержка от МКИ, Деканата и так далее
-    money = models.DecimalField(max_digits=5, decimal_places=0)  # стоимость для участия
+    # стоимость для участия
+    money = models.DecimalField(max_digits=5, decimal_places=0)
     description = models.TextField()  # описание события
     link = models.TextField()  # ссылка на событие в вк
 
