@@ -8,14 +8,14 @@ from django.contrib.auth.models import User
 
 class Person(models.Model):
     user = models.OneToOneField(User)
-    department = models.TextField(default='')  # факультет
-    group = models.TextField(default='')  # группа
-    vkLink = models.TextField(default='')  # ссылка на вк
-    fblink = models.TextField(default='')  # ссылка на фб
-    skype = models.TextField(default='')  # ник в скайпе
-    physMail = models.TextField(default='')  # физтех почта
-    mainMail = models.TextField(default='')  # оснеовная почта
-    phone = models.TextField(default='')  # телефон
+    department = models.TextField(default='')   # факультет
+    group = models.TextField(default='')   # группа
+    vkLink = models.TextField(default='')   # ссылка на вк
+    fblink = models.TextField(default='')   # ссылка на фб
+    skype = models.TextField(default='')   # ник в скайпе
+    physMail = models.TextField(default='')   # физтех почта
+    mainMail = models.TextField(default='')   # оснеовная почта
+    phone = models.TextField(default='')   # телефон
     # номер общаги
     dormNumber = models.DecimalField(max_digits=5, decimal_places=0)
     # номер комнаты
@@ -23,77 +23,72 @@ class Person(models.Model):
 
 
 class Shop(models.Model):
-    shopName = models.TextField()  # название магазина
+    shopName = models.TextField()   # название магазина
+
 
 class ShopTag(models.Model):
     shop = models.ForeignKey(Shop)
-    tag =  models.TextField() # тег к конкретному магазину
+    tag =  models.TextField()  # тег к конкретному магазину
+
 
 class Discount(models.Model):
-    owner = models.ForeignKey(Person) # владелец скидки
-    shop = models.ForeignKey(Shop) # магазин для скидки
-    discountType = models.TextField() # тип скидки
-    discount = models.FloatField() # размер скидки
-    expTime = models.DateField() # время истеченея срока
-    description = models.TextField() # описание скидки
+    owner = models.ForeignKey(Person)  # владелец скидки
+    shop = models.ForeignKey(Shop)  # магазин для скидки
+    discountType = models.TextField()  # тип скидки
+    discount = models.FloatField()  # размер скидки
+    expTime = models.DateField()  # время истеченея срока
+    description = models.TextField()  # описание скидки
+
 
 class Meeting(models.Model):
-    metType = models.TextField() # тип встречи
-    time = models.TimeField() # день
-    dayPart = models.TextField() # время дня
-    location = models.TextField(default='') # место для мероприятия
-    creator = models.ForeignKey(Person) # создатель
-    support = models.TextField() # поддержка от МКИ, Деканата и так далее
-    money = models.DecimalField(max_digits=5, decimal_places=0) # стоимость для участия
-    description = models.TextField() # описание события
-    link = models.TextField() #  ссылка на событие в вк
+    metType = models.TextField()  # тип встречи
+    time = models.TimeField()  # день
+    dayPart = models.TextField()  # время дня
+    location = models.TextField(default='')  # место для мероприятия
+    creator = models.ForeignKey(Person)  # создатель
+    support = models.TextField()  # поддержка от МКИ, Деканата и так далее
+    money = models.DecimalField(max_digits=5, decimal_places=0)  # стоимость для участия
+    description = models.TextField()  # описание события
+    link = models.TextField()  # ссылка на событие в вк
 
 
 class Member(models.Model):
-    meeting = models.ForeignKey(Meeting) # встреча
-    user = models.ForeignKey(Person) # учаник встречи
-    donate = models.DecimalField(max_digits=5, decimal_places=2) # его взнос
+    meeting = models.ForeignKey(Meeting)  # встреча
+    user = models.ForeignKey(Person)  # учаник встречи
+    donate = models.DecimalField(max_digits=5, decimal_places=2)  # его взнос
 
 
 class Gallery(models.Model):
-    meet = models.ForeignKey(Meeting) # встреча
-    uploader = models.ForeignKey(Person) # кто дал доступ к галлерее
-    link = models.TextField() # ссылка на галлерею
+    meet = models.ForeignKey(Meeting)  # встреча
+    uploader = models.ForeignKey(Person)  # кто дал доступ к галлерее
+    link = models.TextField()  # ссылка на галлерею
 
 
 class Item(models.Model):
-    name = models.TextField() # название предмета
-    itemType = models.TextField() # классификация предмета
-    owner = models.ForeignKey(Person) # владелец
-    quality = models.TextField() # качетво предмета
-    location = models.TextField() # где его можно найти
-    status = models.BooleanField(default=False) # используется ли сейчас
-    isCommon = models.BooleanField(default=True) # общественный
-    description = models.TextField() # описание
-<<<<<<< HEAD
+    name = models.TextField()  # название предмета
+    itemType = models.TextField()  # классификация предмета
+    owner = models.ForeignKey(Person)  # владелец
+    quality = models.TextField()  # качетво предмета
+    location = models.TextField()  # где его можно найти
+    status = models.BooleanField(default=False)  # используется ли сейчас
+    isCommon = models.BooleanField(default=True)  # общественный
+    description = models.TextField()  # описание
 
-=======
-    
     def __str__(self):
         return self.name
->>>>>>> 30d525bd7280cf71e355c4123369a676404b9c20
+
 
 class Query(models.Model):
-    who = models.ForeignKey(Person) # кто
-    need = models.TextField() #  что ищет
-    time = models.TimeField() # на какой день
-    dayPart = models.TextField() # время суток
-    duration = models.TextField() # длительность
-    description = models.TextField() # описание
-    compelete = models.BooleanField(default=False) # удовлетворен
-    cancel = models.BooleanField(default=False) # отменен
+    who = models.ForeignKey(Person)  # кто
+    need = models.TextField()  # что ищет
+    time = models.TimeField()  # на какой день
+    dayPart = models.TextField()  # время суток
+    duration = models.TextField()  # длительность
+    description = models.TextField()  # описание
+    compelete = models.BooleanField(default=False)  # удовлетворен
+    cancel = models.BooleanField(default=False)  # отменен
 
 
 class Squery(models.Model):
-    query = models.ForeignKey(Query) # запрос
-<<<<<<< HEAD
-    person = models.ForeignKey(User) # пользователь
-=======
-    person = models.ForeignKey(Person) # пользователь
-
->>>>>>> 30d525bd7280cf71e355c4123369a676404b9c20
+    query = models.ForeignKey(Query)  # запрос
+    person = models.ForeignKey(Person)  # пользователь

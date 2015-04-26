@@ -138,7 +138,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'social.apps.django_app.default',
     'bootstrap3',
-    'bootstrap3_datetime',
+    'datetimewidget',
     'app',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
