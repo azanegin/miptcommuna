@@ -63,6 +63,7 @@ class People(models.Model):
     firstName = models.TextField() # имя
     surname = models.TextField() # фамилия
     secondName = models.TextField() # отчество
+    birthday = models.DateField() # день рождения
     department = models.TextField() # факультет
     group = models.TextField() # группа
     vkLink = models.TextField() # ссылка на вк
