@@ -52,6 +52,8 @@ urlpatterns = patterns(
 
     url(r'^login/$', 'app.views.login_user', name='login'),
 
+    url('', include('social.apps.django_app.urls', namespace='social')),
+
     # url(r'^logout$', 'django.contrib.auth.views.logout',
     #    {
     #        'next_page': '/',
