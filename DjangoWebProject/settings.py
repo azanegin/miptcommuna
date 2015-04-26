@@ -1,7 +1,8 @@
 """
 Django settings for DjangoWebProject project.
 """
-
+import os
+import sys
 from os import path
 PROJECT_ROOT = path.dirname(path.abspath(path.dirname(__file__)))
 
@@ -15,6 +16,11 @@ ALLOWED_HOSTS = (
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
+
+BOOTSTRAP3_FOLDER = os.path.abspath(os.path.join(PROJECT_ROOT, '..', 'bootstrap3'))
+if BOOTSTRAP3_FOLDER not in sys.path:
+    sys.path.insert(0, BOOTSTRAP3_FOLDER)
+
 
 MANAGERS = ADMINS
 
@@ -131,6 +137,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social.apps.django_app.default',
+    'bootstrap3',
+    'bootstrap3_datetime',
     'app',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
@@ -179,3 +187,11 @@ AUTHENTICATION_BACKENDS = (
     'social.backends.vk.VKOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
+
+# Settings for django-bootstrap3
+BOOTSTRAP3 = {
+    'set_required': False,
+    'error_css_class': 'bootstrap3-error',
+    'required_css_class': 'bootstrap3-required',
+    'javascript_in_head': True,
+}
