@@ -2,7 +2,7 @@
 Definition of views.
 """
 from app.models import Meeting, Person, Item
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response, redirect
 from django.http import HttpRequest
 from django.template import RequestContext
 from datetime import datetime
@@ -13,7 +13,9 @@ from django.db.models.fields.files import FieldFile
 from django.views.generic import FormView
 from django.views.generic.base import TemplateView
 from django.contrib import messages
-
+from django.template import RequestContext
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 from app.forms import *
 
 
@@ -149,3 +151,19 @@ class PaginationView(TemplateView):
 
 class MiscView(TemplateView):
     template_name = 'demo/misc.html'
+
+
+def login_user(request):
+    logout(request)
+    username = password = ''
+    if request.POST:
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect('/main/')
+    return render_to_response('login.html',
+                              context_instance=RequestContext(request))

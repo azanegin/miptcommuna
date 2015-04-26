@@ -3,14 +3,13 @@ Definition of urls for DjangoWebProject.
 """
 
 from datetime import datetime
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, url, include
 
 from app.views import *
 
-# Uncomment the next lines to enable the admin:
-from django.conf.urls import include
 from django.contrib import admin
 # admin.autodiscover()
+
 
 urlpatterns = patterns(
     '',
@@ -51,7 +50,7 @@ urlpatterns = patterns(
 
     url(r'^post_query', QueryFormView.as_view(), name='form_query'),
 
-    # url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
+    url(r'^login/$', 'app.views.login_user', name='login'),
 
     # url(r'^logout$', 'django.contrib.auth.views.logout',
     #    {
