@@ -1,0 +1,27 @@
+{% extends "app/base.html" %}
+
+{% block body %}
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{ person.user.first_name }} {{ person.user.last_name }}</h3>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-10">
+	<dl class="dl-horizontal">
+	  <dt>Общежитие:</dt>
+	  <dd>{{ person.dormNumber }}</dd>
+	</dl>
+	<dl class="dl-horizontal">
+	  <dt>Номер комнаты:</dt>
+	  <dd>{{ person.roomNumber }}</dd>
+	</dl>
+	<dl class="dl-horizontal">
+	  <dt>Страница в вк:</dt>
+	  <dd>{{ person.vk }}</dd>
+	</dl>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

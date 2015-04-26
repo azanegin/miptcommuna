@@ -1,13 +1,9 @@
 {% extends "app/base.html" %}
 {% block base %}
+<ul>
 {% for meeting in meetings %}
-<div id="page-wrapper">
-  <div class="container-fluid">
-    <ul>
-      <li>{{ meeting.support }}</li>
-      <li>{{ meeting.description }}</li>
-    </ul>
-  </div>
-</div>
+<li>{{ meeting.support }}</li>
+<li>{{ meeting.description }}</li>
 {% endfor %}
+</ul>
 {% endblock %}
