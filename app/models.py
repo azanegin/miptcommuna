@@ -18,31 +18,6 @@ class Person(models.Model):
     dormNumber = models.DecimalField(max_digits=5, decimal_places=0) # номер общаги
     roomNumber = models.DecimalField(max_digits=5, decimal_places=0) # номер комнаты
 
-class Discount(models.Model):
-    owner = models.ForeignKey(Person)
-    shop = models.TextField()
-    discountType = models.TextField()
-    discount = models.FloatField()
-    expTime = models.DateField()
-    description = models.TextField()
-
-
-class Meeting(models.Model):
-    metType = models.TextField()
-    time = models.TimeField()
-    location = models.TextField()
-    creator = models.ForeignKey(Person)
-    support = models.TextField()
-    money = models.DecimalField(max_digits=5, decimal_places=0)
-    description = models.TextField()
-
-
-class Member(models.Model):
-    meeting = models.ForeignKey(Meeting)
-    user = models.ForeignKey(Person)
-    donate = models.DecimalField(max_digits=5, decimal_places=0)
-
-
 class Shop(models.Model):
     shopName = models.TextField() # название магазина
 
@@ -72,13 +47,13 @@ class Meeting(models.Model):
 
 class Member(models.Model):
     meeting = models.ForeignKey(Meeting) # встреча
-    user = models.ForeignKey(User) # учаник встречи
+    user = models.ForeignKey(Person) # учаник встречи
     donate = models.DecimalField(max_digits=5, decimal_places=2) # его взнос
 
 
 class Gallery(models.Model):
     meet = models.ForeignKey(Meeting) # встреча
-    uploader = models.ForeignKey(User) # кто дал доступ к галлерее
+    uploader = models.ForeignKey(Person) # кто дал доступ к галлерее
     link = models.TextField() # ссылка на галлерею
 
 
@@ -93,11 +68,8 @@ class Item(models.Model):
     description = models.TextField() # описание
     
 
-    
-
-
 class Query(models.Model):
-    who = models.ForeignKey(User) # кто
+    who = models.ForeignKey(Person) # кто
     need = models.TextField() #  что ищет
     time = models.TimeField() # на какой день
     dayPart = models.TextField() # время суток
@@ -108,5 +80,5 @@ class Query(models.Model):
     
 class Squery(models.Model):
     query = models.ForeignKey(Query) # запрос
-    person = models.ForeignKey(User) # пользователь
+    person = models.ForeignKey(Person) # пользователь
 
