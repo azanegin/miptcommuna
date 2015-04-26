@@ -18,34 +18,6 @@ class Person(models.Model):
     dormNumber = models.DecimalField(max_digits=5, decimal_places=0) # номер общаги
     roomNumber = models.DecimalField(max_digits=5, decimal_places=0) # номер комнаты
 
-    def __str__(self):
-        return self.user.first_name
-
-class Discount(models.Model):
-    owner = models.ForeignKey(Person)
-    shop = models.TextField()
-    discountType = models.TextField()
-    discount = models.FloatField()
-    expTime = models.DateField()
-    description = models.TextField()
-
-
-class Meeting(models.Model):
-    metType = models.TextField()
-    time = models.TimeField()
-    location = models.TextField()
-    creator = models.ForeignKey(Person)
-    support = models.TextField()
-    money = models.DecimalField(max_digits=5, decimal_places=0)
-    description = models.TextField()
-
-
-class Member(models.Model):
-    meeting = models.ForeignKey(Meeting)
-    user = models.ForeignKey(Person)
-    donate = models.DecimalField(max_digits=5, decimal_places=0)
-
-
 class Shop(models.Model):
     shopName = models.TextField() # название магазина
 
@@ -75,8 +47,8 @@ class Meeting(models.Model):
 
 class Member(models.Model):
     meeting = models.ForeignKey(Meeting) # встреча
-    user = models.ForeignKey(User) # учаник встречи
-    donate = models.DecimalField(max_digits=5, decimal_places=0) # его взнос
+    user = models.ForeignKey(Person) # учаник встречи
+    donate = models.DecimalField(max_digits=5, decimal_places=2) # его взнос
 
 
 class Gallery(models.Model):
@@ -97,7 +69,6 @@ class Item(models.Model):
     
     def __str__(self):
         return self.name
-
 
 class Query(models.Model):
     who = models.ForeignKey(Person) # кто
