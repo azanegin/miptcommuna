@@ -1,0 +1,20 @@
+{% extends "app/base.html" %}
+{% block body %}
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Вы ищите:</h3>
+  </div>
+  <div class="container-fluid">
+    <form action="{% url 'app:wanted' %}" method="post">
+      {% csrf_token %}
+      <input type="text" value="Велосипед" name="item" />
+      <input type="text" value="Описание"  name="desc" />
+      <label> Сколько готовы заплатить: </label>
+      <input type="number" value=15 name="fee" />
+    <input type="submit" value="Vote" />
+    </form>
+  </div>
+</div>
+
+{% endblock %}
