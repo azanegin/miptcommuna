@@ -85,6 +85,11 @@ class MeetingFormView(FormView):
     form_class = MeetingForm
 
 
+class QueryFormView(FormView):
+    template_name = 'demo/form.html'
+    form_class = QueryForm
+
+
 class DefaultFormView(FormView):
     template_name = 'demo/form.html'
     form_class = ContactForm

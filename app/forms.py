@@ -37,7 +37,8 @@ class ContactBaseFormSet(BaseFormSet):
 
     def clean(self):
         super(ContactBaseFormSet, self).clean()
-        raise forms.ValidationError("This error was added to show the non form errors styling")
+        raise forms.ValidationError("This error was added to show the non form"
+                                    " errors styling")
 
 ContactFormSet = formset_factory(TestForm, formset=ContactBaseFormSet,
                                  extra=2,
@@ -59,7 +60,18 @@ class MeetingForm(forms.Form):
     support = forms.CharField()
     date = forms.DateTimeField(
         required=True,
-        widget=DateTimeWidget(attrs={'id': "yourdatetimeid"}, usel10n=True, bootstrap_version=3))
+        widget=DateTimeWidget(attrs={'id': "yourdatetimeid"}, usel10n=True,
+                              bootstrap_version=3))
+
+
+class QueryForm(forms.Form):
+    need = forms.CharField()
+    date = forms.DateTimeField(
+        required=True,
+        widget=DateTimeWidget(attrs={'id': "yourdatetimeid"}, usel10n=True,
+                              bootstrap_version=3))
+    duration = forms.CharField()
+    description = forms.CharField()
 
 
 class ArticleForm(forms.Form):
@@ -68,5 +80,6 @@ class ArticleForm(forms.Form):
 
     def clean(self):
         cleaned_data = super(ArticleForm, self).clean()
-        raise forms.ValidationError("This error was added to show the non field errors styling.")
+        raise forms.ValidationError("This error was added to show the non"
+                                    " field errors styling.")
         return cleaned_data
