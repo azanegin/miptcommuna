@@ -72,8 +72,9 @@ class People(models.Model):
     physMail = models.TextField() # физтех почта
     mainMail = models.TextField() # оснеовная почта
     phone = models.TextField() #  телефон
-    roomNumber = models.DecimalField(max_digits=5, decimal_places=2) # номер комнаты
     dormNumber = models.DecimalField(max_digits=5, decimal_places=2) # номер общаги
+    roomNumber = models.DecimalField(max_digits=5, decimal_places=2) # номер комнаты
+    
 
 
 class Query(models.Model):
