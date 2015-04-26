@@ -3,7 +3,7 @@ Definition of views.
 """
 from app.models import Meeting, Person, Item
 from django.shortcuts import render, render_to_response, redirect
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponseRedirect
 from django.template import RequestContext
 from datetime import datetime
 from django.shortcuts import render, get_object_or_404
@@ -164,6 +164,6 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect('/main/')
-    return render_to_response('login.html',
+                return HttpResponseRedirect('/')
+    return render_to_response('app/login.html',
                               context_instance=RequestContext(request))
