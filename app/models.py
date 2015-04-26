@@ -5,24 +5,28 @@ Definition of models.
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Person(models.Model):
     user = models.OneToOneField(User)
-    department = models.TextField(default='') # факультет
-    group = models.TextField(default='') # группа
-    vkLink = models.TextField(default='') # ссылка на вк
-    fblink = models.TextField(default='') # ссылка на фб
-    skype = models.TextField(default='') # ник в скайпе
-    physMail = models.TextField(default='') # физтех почта
-    mainMail = models.TextField(default='') # оснеовная почта
-    phone = models.TextField(default='') #  телефон
-    dormNumber = models.DecimalField(max_digits=5, decimal_places=0) # номер общаги
-    roomNumber = models.DecimalField(max_digits=5, decimal_places=0) # номер комнаты
+    department = models.TextField(default='')  # факультет
+    group = models.TextField(default='')  # группа
+    vkLink = models.TextField(default='')  # ссылка на вк
+    fblink = models.TextField(default='')  # ссылка на фб
+    skype = models.TextField(default='')  # ник в скайпе
+    physMail = models.TextField(default='')  # физтех почта
+    mainMail = models.TextField(default='')  # оснеовная почта
+    phone = models.TextField(default='')  # телефон
+    # номер общаги
+    dormNumber = models.DecimalField(max_digits=5, decimal_places=0)
+    # номер комнаты
+    roomNumber = models.DecimalField(max_digits=5, decimal_places=0)
+
 
 class Shop(models.Model):
-    shopName = models.TextField() # название магазина
+    shopName = models.TextField()  # название магазина
 
 class ShopTag(models.Model):
-    shop = models.ForeignKey(Shop) 
+    shop = models.ForeignKey(Shop)
     tag =  models.TextField() # тег к конкретному магазину
 
 class Discount(models.Model):
@@ -43,7 +47,7 @@ class Meeting(models.Model):
     money = models.DecimalField(max_digits=5, decimal_places=0) # стоимость для участия
     description = models.TextField() # описание события
     link = models.TextField() #  ссылка на событие в вк
-    
+
 
 class Member(models.Model):
     meeting = models.ForeignKey(Meeting) # встреча
@@ -66,9 +70,13 @@ class Item(models.Model):
     status = models.BooleanField(default=False) # используется ли сейчас
     isCommon = models.BooleanField(default=True) # общественный
     description = models.TextField() # описание
+<<<<<<< HEAD
+
+=======
     
     def __str__(self):
         return self.name
+>>>>>>> 30d525bd7280cf71e355c4123369a676404b9c20
 
 class Query(models.Model):
     who = models.ForeignKey(Person) # кто
@@ -79,8 +87,13 @@ class Query(models.Model):
     description = models.TextField() # описание
     compelete = models.BooleanField(default=False) # удовлетворен
     cancel = models.BooleanField(default=False) # отменен
-    
+
+
 class Squery(models.Model):
     query = models.ForeignKey(Query) # запрос
+<<<<<<< HEAD
+    person = models.ForeignKey(User) # пользователь
+=======
     person = models.ForeignKey(Person) # пользователь
 
+>>>>>>> 30d525bd7280cf71e355c4123369a676404b9c20
