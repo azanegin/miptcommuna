@@ -27,7 +27,7 @@ class Discount(models.Model):
 class Meeting(models.Model):
     metType = models.TextField()
     time = models.TimeField() # day
-    time2 = models.TextField() # time
+    dayPart = models.TextField() # time
     location = models.TextField() 
     creator = models.ForeignKey(User)
     support = models.TextField()
@@ -76,7 +76,15 @@ class People(models.Model):
 
 
 class Query(models.Model):
-    firstName = models.TextField()
-    firstName = models.TextField()
-    firstName = models.TextField()
-    firstName = models.TextField()
+    who = models.ForeignKey(User)
+    need = models.TextField()
+    time = models.TimeField()
+    dayPart = models.TextField()
+    duration = models.TextField()
+    description = models.TextField()
+    compelete = models.BooleanField(default=False)
+    cancel = models.BooleanField(default=False)
+    
+class Squery(models.Model):
+    query = models.ForeignKey(Query)
+    person = models.ForeignKey(User)
