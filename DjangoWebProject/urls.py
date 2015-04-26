@@ -28,6 +28,7 @@ urlpatterns = patterns('',
     url(r'^person/(?P<person_id>\d+)/$', 'app.views.person', name='person_page'),
     url(r'^item/(?P<item_id>\d+)/$', 'app.views.item', name='item_page'),
     url(r'^trips', 'app.views.trips', name='about'),
+<<<<<<< HEAD
     url(r'^post_meeting', MeetingFormView.as_view(), name='form_meeting'),
     # url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
     # url(r'^logout$', 'django.contrib.auth.views.logout',
@@ -36,4 +37,9 @@ urlpatterns = patterns('',
     #    },
     #    name='logout'),
 
+=======
+    url(r'^post', 'app.views.post_wanted', name='post'),
+    url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
+    url(r'^logout$', 'django.contrib.auth.views.logout')
+>>>>>>> 30d525bd7280cf71e355c4123369a676404b9c20
 )
