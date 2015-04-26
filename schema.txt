@@ -1,0 +1,123 @@
+CREATE TABLE "django_migrations" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "app" varchar(255) NOT NULL, "name" varchar(255) NOT NULL, "applied" datetime NOT NULL);
+CREATE TABLE "app_person" (
+    "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "user_id" integer NOT NULL UNIQUE,
+    "department" text NOT NULL,
+    "group" text NOT NULL,
+    "vkLink" text NOT NULL,
+    "fblink" text NOT NULL,
+    "skype" text NOT NULL,
+    "physMail" text NOT NULL,
+    "mainMail" text NOT NULL,
+    "phone" text NOT NULL,
+    "dormNumber" decimal NOT NULL,
+    "roomNumber" decimal NOT NULL
+);
+CREATE TABLE "app_discount" (
+    "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "owner_id" integer NOT NULL REFERENCES "app_person" ("id"),
+    "shop_id" integer NOT NULL,
+    "discountType" text NOT NULL,
+    "discount" real NOT NULL,
+    "expTime" date NOT NULL,
+    "description" text NOT NULL
+);
+CREATE TABLE "app_meeting" (
+    "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "metType" text NOT NULL,
+    "time" time NOT NULL,
+    "dayPart" text NOT NULL,
+    "location" text NOT NULL,
+    "creator_id" integer NOT NULL REFERENCES "app_person" ("id"),
+    "support" text NOT NULL,
+    "money" decimal NOT NULL,
+    "description" text NOT NULL,
+    "link" text NOT NULL
+);
+CREATE TABLE "app_member" (
+    "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "meeting_id" integer NOT NULL REFERENCES "app_meeting" ("id"),
+    "user_id" integer NOT NULL,
+    "donate" decimal NOT NULL
+);
+CREATE TABLE "app_shop" (
+    "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "shopName" text NOT NULL
+);
+CREATE TABLE "app_shoptag" (
+    "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "shop_id" integer NOT NULL REFERENCES "app_shop" ("id"),
+    "tag" text NOT NULL
+);
+CREATE TABLE "app_gallery" (
+    "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "meet_id" integer NOT NULL REFERENCES "app_meeting" ("id"),
+    "uploader_id" integer NOT NULL,
+    "link" text NOT NULL
+);
+CREATE TABLE "app_item" (
+    "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "name" text NOT NULL,
+    "itemType" text NOT NULL,
+    "owner_id" integer NOT NULL REFERENCES "app_person" ("id"),
+    "quality" text NOT NULL,
+    "location" text NOT NULL,
+    "status" bool NOT NULL,
+    "isCommon" bool NOT NULL,
+    "description" text NOT NULL
+);
+CREATE TABLE "app_query" (
+    "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "who_id" integer NOT NULL,
+    "need" text NOT NULL,
+    "time" time NOT NULL,
+    "dayPart" text NOT NULL,
+    "duration" text NOT NULL,
+    "description" text NOT NULL,
+    "compelete" bool NOT NULL,
+    "cancel" bool NOT NULL
+);
+CREATE TABLE "app_squery" (
+    "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "query_id" integer NOT NULL REFERENCES "app_query" ("id"),
+    "person_id" integer NOT NULL
+);
+CREATE INDEX "app_discount_cb902d83" ON "app_discount" ("owner_id");
+CREATE INDEX "app_discount_74d4252d" ON "app_discount" ("shop_id");
+CREATE INDEX "app_meeting_ad376f8d" ON "app_meeting" ("creator_id");
+CREATE INDEX "app_member_7842a746" ON "app_member" ("meeting_id");
+CREATE INDEX "app_member_6340c63c" ON "app_member" ("user_id");
+CREATE INDEX "app_shoptag_74d4252d" ON "app_shoptag" ("shop_id");
+CREATE INDEX "app_gallery_35569e5d" ON "app_gallery" ("meet_id");
+CREATE INDEX "app_gallery_8a3cba94" ON "app_gallery" ("uploader_id");
+CREATE INDEX "app_item_cb902d83" ON "app_item" ("owner_id");
+CREATE INDEX "app_query_ca305b63" ON "app_query" ("who_id");
+CREATE INDEX "app_squery_1f3ceafc" ON "app_squery" ("query_id");
+CREATE INDEX "app_squery_16f39487" ON "app_squery" ("person_id");
+CREATE TABLE "auth_group" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "name" varchar(80) NOT NULL UNIQUE);
+CREATE TABLE "auth_group_permissions" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "group_id" integer NOT NULL REFERENCES "auth_group" ("id"), "permission_id" integer NOT NULL REFERENCES "auth_permission" ("id"), UNIQUE ("group_id", "permission_id"));
+CREATE TABLE "auth_user_groups" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "user_id" integer NOT NULL REFERENCES "auth_user" ("id"), "group_id" integer NOT NULL REFERENCES "auth_group" ("id"), UNIQUE ("user_id", "group_id"));
+CREATE TABLE "auth_user_user_permissions" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "user_id" integer NOT NULL REFERENCES "auth_user" ("id"), "permission_id" integer NOT NULL REFERENCES "auth_permission" ("id"), UNIQUE ("user_id", "permission_id"));
+CREATE INDEX "auth_group_permissions_0e939a4f" ON "auth_group_permissions" ("group_id");
+CREATE INDEX "auth_group_permissions_8373b171" ON "auth_group_permissions" ("permission_id");
+CREATE INDEX "auth_user_groups_e8701ad4" ON "auth_user_groups" ("user_id");
+CREATE INDEX "auth_user_groups_0e939a4f" ON "auth_user_groups" ("group_id");
+CREATE INDEX "auth_user_user_permissions_e8701ad4" ON "auth_user_user_permissions" ("user_id");
+CREATE INDEX "auth_user_user_permissions_8373b171" ON "auth_user_user_permissions" ("permission_id");
+CREATE TABLE "django_admin_log" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "action_time" datetime NOT NULL, "object_id" text NULL, "object_repr" varchar(200) NOT NULL, "action_flag" smallint unsigned NOT NULL, "change_message" text NOT NULL, "content_type_id" integer NULL REFERENCES "django_content_type" ("id"), "user_id" integer NOT NULL REFERENCES "auth_user" ("id"));
+CREATE INDEX "django_admin_log_417f1b1c" ON "django_admin_log" ("content_type_id");
+CREATE INDEX "django_admin_log_e8701ad4" ON "django_admin_log" ("user_id");
+CREATE TABLE "social_auth_association" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "server_url" varchar(255) NOT NULL, "handle" varchar(255) NOT NULL, "secret" varchar(255) NOT NULL, "issued" integer NOT NULL, "lifetime" integer NOT NULL, "assoc_type" varchar(64) NOT NULL);
+CREATE TABLE "social_auth_nonce" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "server_url" varchar(255) NOT NULL, "timestamp" integer NOT NULL, "salt" varchar(65) NOT NULL, UNIQUE ("server_url", "timestamp", "salt"));
+CREATE TABLE "social_auth_usersocialauth" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "user_id" integer NOT NULL REFERENCES "auth_user" ("id"), "provider" varchar(32) NOT NULL, "uid" varchar(255) NOT NULL, "extra_data" text NOT NULL, UNIQUE ("provider", "uid"));
+CREATE INDEX "social_auth_usersocialauth_e8701ad4" ON "social_auth_usersocialauth" ("user_id");
+CREATE TABLE "social_auth_code" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "email" varchar(75) NOT NULL, "code" varchar(32) NOT NULL, "verified" bool NOT NULL, UNIQUE ("email", "code"));
+CREATE INDEX "social_auth_code_c1336794" ON "social_auth_code" ("code");
+CREATE TABLE "django_session" ("session_key" varchar(40) NOT NULL PRIMARY KEY, "session_data" text NOT NULL, "expire_date" datetime NOT NULL);
+CREATE INDEX "django_session_de54fa62" ON "django_session" ("expire_date");
+CREATE TABLE "django_site" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "domain" varchar(100) NOT NULL, "name" varchar(50) NOT NULL);
+CREATE TABLE "django_content_type" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "app_label" varchar(100) NOT NULL, "model" varchar(100) NOT NULL, UNIQUE ("app_label", "model"));
+CREATE TABLE "auth_permission" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "content_type_id" integer NOT NULL REFERENCES "django_content_type" ("id"), "codename" varchar(100) NOT NULL, "name" varchar(255) NOT NULL, UNIQUE ("content_type_id", "codename"));
+CREATE INDEX "auth_permission_417f1b1c" ON "auth_permission" ("content_type_id");
+CREATE TABLE "auth_user" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "password" varchar(128) NOT NULL, "is_superuser" bool NOT NULL, "username" varchar(30) NOT NULL UNIQUE, "first_name" varchar(30) NOT NULL, "last_name" varchar(30) NOT NULL, "email" varchar(254) NOT NULL, "is_staff" bool NOT NULL, "is_active" bool NOT NULL, "date_joined" datetime NOT NULL, "last_login" datetime NULL);
+/* No STAT tables available */
